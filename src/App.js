@@ -1,23 +1,47 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
 
 function App() {
+  const [userList, setUserList] = useState(null);
+  const getUsers = (e) => {
+    e.preventDefault();
+
+    fetch("users.json")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        setUserList(data);
+      });
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+      <div className="container">
+        <button
+          onClick={(e) => {
+            getUsers(e);
+          }}
         >
-          Learn React
-        </a>
-      </header>
+          Get Users
+        </button>
+        {userList && (
+          <div>
+            {userList.map((user, index) => {
+              return (
+                <div key={index}>
+                  <ul>
+                    <li>ID: {user.id}</li>
+                    <li>Name: {user.name}</li>
+                    <li>Age: {user.age}</li>
+                    <li>Email: {user.email}</li>
+                  </ul>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 }
