@@ -19,6 +19,7 @@ function App() {
     <div className="App">
       <div className="container">
         <button
+          className="button"
           onClick={(e) => {
             getUsers(e);
           }}
@@ -26,10 +27,10 @@ function App() {
           Get Users
         </button>
         {userList && (
-          <div>
+          <div className="allUsers">
             {userList.map((user, index) => {
               return (
-                <div key={index}>
+                <div className="singleUser" key={index}>
                   <ul>
                     <li>ID: {user.id}</li>
                     <li>Name: {user.name}</li>
